@@ -26,14 +26,17 @@ class VimeoVideo(CMSPlugin):
                     'Example: https://vimeo.com/50516814'),
         blank=True, null=True)
 
-    width = models.PositiveSmallIntegerField(_('width'))
+    width = models.PositiveSmallIntegerField(_('width'), null=True)
 
-    height = models.PositiveSmallIntegerField(_('height'))
+    height = models.PositiveSmallIntegerField(_('height'), null=True)
 
     auto_play = models.BooleanField(
         _('auto play'), default=settings.CMS_VIMEO_AUTOPLAY)
 
     loop = models.BooleanField(_('loop'), default=settings.CMS_VIMEO_LOOP)
+    
+    template = models.CharField('Template', max_length=255, 
+                                choices=settings.CMS_VIMEO_TEMPLATES)
 
     def __str__(self):
         name = self.movie_url

@@ -9,6 +9,7 @@ from cms.plugin_pool import plugin_pool
 
 from .forms import VimeoVideoForm
 from .models import VimeoVideo
+from . import settings
 
 
 class VimeoVideoPlugin(CMSPluginBase):
@@ -16,7 +17,7 @@ class VimeoVideoPlugin(CMSPluginBase):
     name = _("Vimeo Video")
     form = VimeoVideoForm
 
-    render_template = "djangocms_vimeo/video.html"
+    render_template = settings.CMS_VIMEO_TEMPLATES[0][0]
 
     general_fields = [
         'movie_url',
@@ -26,12 +27,14 @@ class VimeoVideoPlugin(CMSPluginBase):
     ]
 
     fieldsets = [
-        (None, {
-            'fields': general_fields,
-        }),
+        (None, {'fields': general_fields,}),
+        ('Advanced Settings', {'fields': ['template']}),
     ]
 
     def render(self, context, instance, placeholder):
+        if instance and instance.template:
+            self.render_template = instance.template
+            
         context.update({
             'object': instance,
             'placeholder': placeholder,
