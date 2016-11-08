@@ -16,6 +16,14 @@ This plugin requires `django CMS` 3.3.1 or higher to be properly installed.
 * In your projects `virtualenv`_, run ``pip install djangocms-vimeo``.
 * Add ``'djangocms_vimeo'`` to your ``INSTALLED_APPS`` setting.
 * Run ``manage.py migrate djangocms_vimeo``.
+* Add your rendering template to CMS_VIMEO_TEMPLATES in your settings.py
+```
+CMS_VIMEO_TEMPLATES = (
+  ('djangocms_vimeo/default.html', _('Default')),
+  ('djangocms_vimeo/video.html', _('Video')),
+)
+```
+* Select your template from the plugin's "Advanced Settings" in the CMS.    
 
 Contributing
 ------------
@@ -28,7 +36,7 @@ History
 v0.4.0:
 
     * Adding migration required for Django CMS v3.3.1 and later, which is now
-      required for this app.
+      required for this app.  
 
 v0.3.3:
 
